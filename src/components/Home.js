@@ -2,9 +2,11 @@ import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import axios, {instance} from "../axios";
 import TextField from "@mui/material/TextField";
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
 
 export const Home = () => {
+    const location = useLocation();
+    const msg = location.state === null ? "" : location.state.msg
     const [role, setRole] = useState("")
     const [fullName, setFullName] = useState("")
     const [phone, setPhone] = useState("")
@@ -36,6 +38,7 @@ export const Home = () => {
         <div className="Auth-form-container">
             <form className="Auth-form">
                 <div className="Auth-form-content">
+                    <h6 className="Auth-form-title"> {msg}</h6>
                     <h3 className="Auth-form-title"> Welcome {role}</h3>
                     <div className="form-group mt-3">
 

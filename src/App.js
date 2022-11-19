@@ -8,6 +8,7 @@ import {Login} from "./components/Login.js"
 import {Home} from "./components/Home";
 import {Logout} from "./components/Logout";
 import {Registration} from "./components/Registration"
+import {Header} from "./components/Header";
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
             <Route path="/" element={<Navigate to="/login"/>}/>
             <Route path="/register" element={
                 <PublicRoute>
-                    <Registration/>
+                    <Registration signUp={true}/>
                 </PublicRoute>
             }/>
             <Route
@@ -28,11 +29,22 @@ function App() {
                 }
             />
             <Route
+                path="/updateProfile"
+                element={
+                    <PrivateRoute>
+                        <Header update={true}/>
+                        <Registration signUp={false}/>
+                        <Logout delete={true}/>
+                    </PrivateRoute>
+                }
+            />
+            <Route
                 path="/me"
                 element={
                     <PrivateRoute>
+                        <Header update={false}/>
                         <Home/>
-                        <Logout/>
+                        <Logout delete={false}/>
                     </PrivateRoute>
                 }
             />
