@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
-import axios, {instance} from "../axios";
+import {instance, url} from "../axios";
 import TextField from "@mui/material/TextField";
 import {Link, Navigate, useLocation} from "react-router-dom";
 
@@ -13,6 +13,7 @@ export const Home = () => {
     const [group, setGroup] = useState("")
     const [variant, setVariant] = useState("")
     const [email, setEmail] = useState("")
+    const [avatarUrl, setAvatarUrl] = useState("")
 
     try {
         instance.get("/me").then(res => {
@@ -22,6 +23,7 @@ export const Home = () => {
             setFullName(res.data.userData.fullName);
             setGroup(res.data.userData.group);
             setPhone(res.data.userData.phone);
+            setAvatarUrl(res.data.userData.avatarUrl)
         })
             .catch(error => {
                 console.log(error.response.data.message);
@@ -44,11 +46,25 @@ export const Home = () => {
 
                     </div>
                     <div className="form-group mt-3">
-                        <p> Full name: {fullName} </p>
-                        <p> Group: {group} </p>
-                        <p> Phone: {phone} </p>
-                        <p>Variant: {variant} </p>
-                        <p> Email: {email} </p>
+                        <div className={"d-flex justify-content-center header"}>
+                            <img alt="Uploaded" src={`${url}${avatarUrl}`}
+                                 style={{borderRadius: "50%", width: "200px", height: "200px"}}/>
+                        </div>
+                        <div className={"d-flex justify-content-center"}>
+                            <p style={{marginTop: "20px"}}> Full name: {fullName} </p>
+                        </div>
+                        <div className={"d-flex justify-content-center"}>
+                            <p> Group: {group} </p>
+                        </div>
+                        <div className={"d-flex justify-content-center"}>
+                            <p> Phone: {phone} </p>
+                        </div>
+                        <div className={"d-flex justify-content-center"}>
+                            <p>Variant: {variant} </p>
+                        </div>
+                        <div className={"d-flex justify-content-center"}>
+                            <p> Email: {email} </p>
+                        </div>
                     </div>
                 </div>
             </form>

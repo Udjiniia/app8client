@@ -1,13 +1,10 @@
 import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css"
 import {Link} from "react-router-dom"
-import {instance} from "../axios.js";
-import axios from "axios";
+import {instance, url} from "../axios.js";
 import {useForm} from "react-hook-form"
 import TextField from "@mui/material/TextField";
-import {Navigate} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom'
-import * as events from "events";
 
 
 export const Registration = (props) => {
@@ -23,14 +20,14 @@ export const Registration = (props) => {
     const [variant, setVariant] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [avatarUrl, setAvatarUrl] = useState("https://yt3.ggpht.com/j36B5CSchftLDJf1rKg06O_P0pqRfpHJPrb4ddYX5RgxGZxmSFqFDWv1dGnjcQCUaaB4dz-CdaQ=s900-c-k-c0x00ffffff-no-rj")
+    const [avatarUrl, setAvatarUrl] = useState("/uploads/anon.jpg")
+    const inputFileRef = React.useRef(null);
 
     useEffect(() => {
         document.getElementById(role).setAttribute("checked", true);
     })
 
-    const {handleSubmit, formState: {errors, isValid}} = useForm({
-    })
+    const {handleSubmit, formState: {errors, isValid}} = useForm({})
 
     const registerSubmit = () => {
         try {
@@ -55,6 +52,23 @@ export const Registration = (props) => {
             })
         } catch
             (error) {
+            if (error.response) {
+                console.log(error.response.data.message);
+            }
+        }
+    }
+
+    const handleChangeFile = async (event) => {
+        try {
+            const formData = new FormData();
+            const file = event.target.files[0];
+            formData.append("image", file);
+            console.log(formData)
+            const {data} = await instance.post("/upload", formData)
+            setAvatarUrl(data.url)
+        } catch
+            (error) {
+            alert("Couldn`t upload the image")
             if (error.response) {
                 console.log(error.response.data.message);
             }
@@ -126,7 +140,6 @@ export const Registration = (props) => {
             }
         });
     }
-
 
 
     return (
@@ -224,17 +237,34 @@ export const Registration = (props) => {
                                name="contact" value="user"/> User
                     </div>
                     <div className="d-grid gap-2 mt-3">
+                        <button type="button" onClick={() => inputFileRef.current.click()} className="btn btn-outline-primary">
+                            Upload avatar
+                        </button>
+                    </div>
+                    <input ref={inputFileRef} type="file" accept="image/*" onChange={handleChangeFile} hidden/>
+                    {avatarUrl !== "/uploads/anon.jpg" && avatarUrl !== ""  && (
+                        <div className="d-grid gap-2 mt-3">
+                            <button type="button" onClick={() => setAvatarUrl("")} className="btn btn-outline-primary">
+                                Remove avatar
+                            </button>
+                            <div className={"d-flex justify-content-center header"}>
+                            <img alt="Uploaded"  src={`${url}${avatarUrl}`}
+                                 style={{ borderRadius: "50%", width: "200px", height: "200px"}}/>
+                            </div>
+                        </div>
+                    )}
+                    <div className="d-grid gap-2 mt-3">
                         <button type="submit" className="btn btn-primary">
                             Submit
                         </button>
                     </div>
-                    <div className="forgot-password text-right mt-2" style={{color: 'red'}}>
+                    <div className=" forgot-password text-right mt-2" style={{color: 'red'}}>
                         {errorMsg}
                     </div>
-                    { registration ?
-                    <p className="forgot-password text-right mt-2">
-                        Already have an account? <Link to="/login"> Sign in</Link>
-                    </p> : ""}
+                    {registration ?
+                        <p className=" forgot-password text-right mt-2">
+                            Already have an account? <Link to="/login"> Sign in</Link>
+                        </p> : ""}
                 </div>
             </form>
         </div>

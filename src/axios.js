@@ -6,9 +6,11 @@ import {Logout} from "./components/Logout";
 import {common} from "@mui/material/colors";
 
 
+//export const url = "http://localhost:5000"
+export const url = process.env.APP_API_BASE_URL
+
 export const instance = axios.create({
-    //baseURL: "http://localhost:5000/",
-    baseURL: process.env.APP_API_BASE_URL,
+    baseURL: url
 });
 
 instance.interceptors.request.use(function (config) {
