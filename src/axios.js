@@ -7,10 +7,12 @@ import {common} from "@mui/material/colors";
 
 
 //export const url = "http://localhost:5000"
-export const url = process.env.APP_API_BASE_URL
+export const url = ""
+//export const url = "http://localhost:5000"
+export const baseUrl = process.env.APP_API_BASE_URL
 
 export const instance = axios.create({
-    baseURL: url
+    baseURL: baseUrl
 });
 
 instance.interceptors.request.use(function (config) {

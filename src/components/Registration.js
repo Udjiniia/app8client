@@ -63,7 +63,6 @@ export const Registration = (props) => {
             const formData = new FormData();
             const file = event.target.files[0];
             formData.append("image", file);
-            console.log(formData)
             const {data} = await instance.post("/upload", formData)
             setAvatarUrl(data.url)
         } catch
