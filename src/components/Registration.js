@@ -244,7 +244,7 @@ export const Registration = (props) => {
                     <input ref={inputFileRef} type="file" accept="image/*" onChange={handleChangeFile} hidden/>
                     {avatarUrl !== "/uploads/anon.jpg" && avatarUrl !== ""  && (
                         <div className="d-grid gap-2 mt-3">
-                            <button type="button" onClick={() => setAvatarUrl("")} className="btn btn-outline-primary">
+                            <button type="button" onClick={() => setAvatarUrl("/uploads/anon.jpg")} className="btn btn-outline-primary">
                                 Remove avatar
                             </button>
                             <div className={"d-flex justify-content-center header"}>
