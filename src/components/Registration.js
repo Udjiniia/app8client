@@ -83,6 +83,7 @@ export const Registration = (props) => {
                 setFullName(res.data.userData.fullName);
                 setGroup(res.data.userData.group);
                 setPhone(res.data.userData.phone);
+                setAvatarUrl(res.data.userData.avatarUrl)
             })
                 .catch(error => {
                     console.log(error.response.data.message);
