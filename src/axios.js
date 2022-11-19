@@ -62,6 +62,6 @@ export const PublicRoute =
                 console.log(error.response.data.message);
             }
         }
-        return auth ? <Navigate to="/me"/> : children;
+        return auth ? <Navigate to="/profile"/> : children;
     };
 

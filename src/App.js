@@ -39,7 +39,7 @@ function App() {
                 }
             />
             <Route
-                path="/me"
+                path="/profile"
                 element={
                     <PrivateRoute>
                         <Header update={false}/>

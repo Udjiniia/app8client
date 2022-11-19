@@ -44,7 +44,7 @@ export const Login = () => {
     }
 
     if (auth) {
-        return <Navigate to="/me"/>
+        return <Navigate to="/profile"/>
     }
 
     return (

@@ -126,7 +126,7 @@ export const Registration = (props) => {
     }
 
     if (updateAcc) {
-        navigation('/me', {
+        navigation('/profile', {
             state: {
                 msg: "Your profile changed",
             }
