@@ -15,7 +15,7 @@ export const Header = (props) => {
 
         <div className="position-relative">
             <div className="position-absolute top-0 end-0">
-                <Link to={ update ? "/me" : "/updateProfile"} className="btn btn-primary">
+                <Link to={ update ? "/profile" : "/updateProfile"} className="btn btn-primary">
                     {update ? "My profile" : "Update profile"}
                 </Link>
             </div>
